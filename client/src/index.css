@@ -1,0 +1,113 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: block;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 33px;
+  line-height: 1.1;
+  position: relative;
+  color: #0b0e42;
+}
+
+.verstappen-container {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  height: 10%;
+  color: #082b49;
+  position: absolute;
+}
+
+button {
+  border-radius: 16px;
+  border: 1px solid transparent;
+  width: 300px;
+  height: 100px;
+  color: #ffffff;
+  padding: 0.6em 1.2em;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  background: linear-gradient(270deg, #1d3377b7, #0e0be2, #a015b0, #df2840c5);
+  animation: gradientAnimation 15s ease infinite;
+  background-size: 300% 100%;
+  transition: border-color 0.25s;
+  box-shadow: 0 0 15px rgba(29, 5, 91, 0.804);
+}
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+button:hover {
+  border-color: #be0860;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #72007d;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.overlay {
+  position: fixed;       /* Приклеює поверх всього сайту */
+  top: 0;
+  left: 0;
+  width: 100vw;          /* Вся ширина екрану */
+  height: 100vh;         /* Вся висота екрану */
+  background: rgba(0, 0, 0, 0.8); /* Темний фон за картинкою */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;          /* Щоб поверх всього */
+}
+
+.overlay img {
+  max-width: 90%;        /* Щоб не вийшло за межі екрана */
+  max-height: 90%;
+  object-fit: contain;   /* Картинка пропорційно вписується */
+  border-radius: 10px;   /* Трохи красиво округлює кути */
+  box-shadow: 0 0 20px black;
+}
+
