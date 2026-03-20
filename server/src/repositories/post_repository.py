@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import Depends
 from sqlalchemy import insert, select, update, delete
 from src.models.post import Post, PostCreate
@@ -37,3 +39,6 @@ class PostRepository:
         await database.execute(stmt)
         await database.commit()
     
+    async def get_posts(self, database) -> List[Post]:
+        result = await database.execute(select(Post))
+        return result.scalars().all()

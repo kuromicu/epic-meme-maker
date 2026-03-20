@@ -1,6 +1,30 @@
+.editor-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+  border-color: darkred;
+}
+
+.post-title-input {
+  width: 100%;
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  margin-bottom: 16px;
+}
+
 .ProseMirror {
-  border: 1px solid #ccc;
-  padding: 10px;
-  min-height: 150px;
-  border-radius: 8px;
+  margin: 0 auto;
+  min-height: 300px;
+  font-size: 20px;
+  color:dimgray;
+  font-weight: 500;
+  border-color: darkred;
+  text-decoration: dashed;
+}
+
+.uploads-container {
+  display: flex;
+  gap: 12px;
 }

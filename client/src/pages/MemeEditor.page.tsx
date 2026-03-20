@@ -3,11 +3,16 @@ import TopButtons from "../buttons/TopButtons/TopButtons"
 
 function MemeEditorPage() {
     return (
-        <h1>
+        <>  
+            
             <TopButtons/>
-            <p>Макс Ферстаппен мем едіт пейдж</p>
-        </h1>
+            <div className="content">
+                <p>Макс Ферстаппен мем едіт пейдж</p>
+            </div>
+                
+        </>
     )
 }
+
 
 export default MemeEditorPage

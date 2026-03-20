@@ -1,3 +1,6 @@
+from typing import List
+
+
 from fastapi import Depends
 from sqlalchemy import insert, select, update, delete
 from src.models.meme import Meme, MemeCreate
@@ -30,3 +33,7 @@ class MemeRepository:
         stmt = delete(Meme).where(Meme.creator_id == creator_id)
         await database.execute(stmt)
         await database.commit()
+        
+    async def get_memes(self, database) -> List[Meme]:
+        result = await database.execute(select(Meme))
+        return result.scalars().all()

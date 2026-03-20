@@ -1,19 +1,26 @@
 .top-button {
-  display:inline-block;
   position: relative;
+  page-orientation: initial;
   width: 200px;  
   height: 50px;
   line-height: normal;
   border-radius: 10px;
   border: 1px solid transparent;
   font-weight: 500;
-  font-size: 25px;
+  font-size: 21px;
   text-align: center;
-  color: rgb(16, 4, 43);
+  color: rgb(21, 2, 66);
   background:scroll;
   text-decoration: none;
   cursor: pointer;
   white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
   
 
 }
@@ -21,4 +28,34 @@
   box-shadow: 0 0 15px rgba(255,255,255,0.6);
   transform: scale(1.05);
   transition: 0.2s;
+  text-shadow: 0 0 15px #04063c3b;
+  color: rgb(102, 4, 199);
+  background-color: #04063c00;
 }
+.navbar {
+  position: fixed;   
+  top: 0;
+  left: 0;
+  width: 100%;      
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  background-color: #f0f8ff;
+  
+  
+}
+
+:root {
+  --navbar-height: 80px;
+}
+
+.navbar {
+  height: var(--navbar-height);
+}
+
+.content {
+  margin-top: var(--navbar-height);
+}
+
+

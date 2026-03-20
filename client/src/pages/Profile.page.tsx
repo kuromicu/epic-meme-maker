@@ -4,10 +4,11 @@ import TopButtons from "../buttons/TopButtons/TopButtons"
 
 function ProfilePage() {
     return (
-        <h1>
+        <>
             <TopButtons/>
+            <div className="content"></div>
             <p>Макс Ферстаппен профіль пейдж</p>
-        </h1>
+        </>
     )
 }
 

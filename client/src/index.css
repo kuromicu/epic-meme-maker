@@ -48,30 +48,27 @@ h1 {
 }
 
 button {
-  border-radius: 16px;
+  position: flex;
+  border-radius: 20px;
   border: 1px solid transparent;
-  width: 300px;
-  height: 100px;
-  color: #ffffff;
-  padding: 0.6em 1.2em;
-  font-size: 20px;
-  font-weight: 700;
   font-family: inherit;
   cursor: pointer;
-  background: linear-gradient(270deg, #1d3377b7, #0e0be2, #a015b0, #df2840c5);
-  animation: gradientAnimation 15s ease infinite;
-  background-size: 300% 100%;
-  transition: border-color 0.25s;
   box-shadow: 0 0 15px rgba(29, 5, 91, 0.804);
 }
 @keyframes gradientAnimation {
+
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 button:hover {
-  border-color: #be0860;
+  background-color: #b0bfef;
+  box-shadow: 0 0 15px rgba(255,255,255,0.6);
+  transform: scale(1.05);
+  transition: 0.2s;
+  animation: gradientAnimation 15s ease infinite;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -110,4 +107,104 @@ button:focus-visible {
   border-radius: 10px;   /* Трохи красиво округлює кути */
   box-shadow: 0 0 20px black;
 }
+.pulse-button {
+  border-radius: 16px;
+  border: 1px solid transparent;
+  width: 200px;
+  height: 70px;
+  color: #ffffff;
+  padding: 0.6em 1.2em;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  background: linear-gradient(270deg, #15a236, #20bc47e7, #27eeb9, #539cdbc5, #646cff);
+  background-size: 300% 300%;
+  animation: forwards;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: border-color 0.4s;
+  box-shadow: 0 0 15px rgba(29, 5, 91, 0.804);
+}
+.pulse-button:hover {
+  animation: greenPulse 1.2s infinite;
+}
 
+@keyframes greenPulse {
+  0% {
+    box-shadow: 0 0 5px rgba(34,197,94,.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(34,197,94,.9);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(34,197,94,.4);
+  }
+}
+
+.gradient-button {
+position: relative;
+  overflow: hidden;
+
+  border-radius: 16px;
+  border: 1px solid transparent;
+  width: 200px;
+  height: 70px;
+  color: #ffffff;
+  padding: 0.6em 1.2em;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+
+  background: linear-gradient(
+    270deg,
+    #15a236,
+    #20bc47e7,
+    #27eeb9,
+    #539cdbc5,
+    #646cff
+  );
+  background-size: 300% 300%;
+
+  transition: box-shadow 0.4s ease;
+  box-shadow: 0 0 15px rgba(29, 5, 91, 0.8);
+}
+
+/* ГРАДИЕНТ ДВИЖЕТСЯ ВПЕРЁД */
+.gradient-button:hover {
+  background-position: 100% 50%;
+  border: #082b4900;
+}
+
+.gradient-button:active{
+  background-color: darkgray;
+  border: #082b4900;
+}
+.create-button {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 28px;
+  border-radius: 50px;
+
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+
+.create-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+.content {
+  padding: 10px;
+}

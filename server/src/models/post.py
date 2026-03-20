@@ -8,8 +8,8 @@ class Post(Base):
     __tablename__ = "posts"
     
     id = Column(Integer, primary_key=True)
-    meme_id = Column(Integer, nullable=False, foreign_key=ForeignKey("memes.id"))
-    creator_id = Column(Integer, nullable=False, foreign_key=ForeignKey("users.id"))
+    meme_id = Column(Integer, ForeignKey("memes.id"), nullable=False)
+    creator_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     like_count = Column(Integer, default=0) 
     date_of_creation = Column(Integer)
     
