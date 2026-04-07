@@ -48,6 +48,7 @@ h1 {
 }
 
 button {
+  
   position: flex;
   border-radius: 20px;
   border: 1px solid transparent;
@@ -55,19 +56,7 @@ button {
   cursor: pointer;
   box-shadow: 0 0 15px rgba(29, 5, 91, 0.804);
 }
-@keyframes gradientAnimation {
 
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-button:hover {
-  background-color: #b0bfef;
-  box-shadow: 0 0 15px rgba(255,255,255,0.6);
-  transform: scale(1.05);
-  transition: 0.2s;
-  animation: gradientAnimation 15s ease infinite;
-}
 
 button:focus,
 button:focus-visible {
@@ -176,6 +165,19 @@ position: relative;
   border: #082b4900;
 }
 
+@keyframes gradientAnimation {
+
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+button:hover {
+  background-color: #b0bfef;
+  box-shadow: 0 0 15px rgba(255,255,255,0.6);
+  transform: scale(1.05);
+  transition: 0.2s;
+  animation: gradientAnimation 15s ease infinite;
+}
 .gradient-button:active{
   background-color: darkgray;
   border: #082b4900;
@@ -206,5 +208,6 @@ position: relative;
 
 
 .content {
-  padding: 10px;
+  margin-top: 80px;
+  margin-bottom: 80px;
 }

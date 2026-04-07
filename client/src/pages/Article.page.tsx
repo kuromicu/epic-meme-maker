@@ -4,6 +4,7 @@ import type { Article } from "../types/Article"
 import TopButtons from "../buttons/TopButtons/TopButtons"
 import "./Article.page.css"
 import SidebarArticleList from "../buttons/SidebarArticleList"
+import "../buttons/SidebarList.css"
 
 function ArticlePage() {
     const { article_id } = useParams<{ article_id: string }>()
@@ -65,6 +66,7 @@ function ArticlePage() {
     return (
         <>
             <TopButtons />
+            <div className="content"></div>
             <SidebarArticleList/>
             <div className="article-detail-container">
                 <div className="article-detail">

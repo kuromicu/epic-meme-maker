@@ -46,7 +46,6 @@ export default function ContactUsPage() {
             }
 
             alert("Message sent successfully!")
-            // Reset form
             setFirstName("")
             setLastName("")
             setEmail("")
@@ -65,7 +64,6 @@ export default function ContactUsPage() {
     return (
         <>
         <TopButtons/>
-        <div className="glass-bg"></div>
             <div className="content"></div>
         <div className="auth-page">
             <form className="auth-form" onSubmit={handleSubmit} encType="multipart/form-data">
@@ -111,15 +109,16 @@ export default function ContactUsPage() {
                     />
                 </label>
 
-                <label>
-                    Message
-                    <textarea
-                        value={message}
-                        onChange={e => setMessage(e.target.value)}
-                        required
-                    />
-                </label>
-
+                <div className="message-content">
+                    <label>
+                        Message
+                        <textarea
+                            value={message}
+                            onChange={e => setMessage(e.target.value)}
+                            required
+                        />
+                    </label>
+                </div>
                 <fieldset>
                     <legend>Preferred Contact Method</legend>
                     <label>
@@ -159,7 +158,7 @@ export default function ContactUsPage() {
                     Attach Image
                     <input
                         type="file"
-                        accept="image/*"
+                        accept="pdf"
                         onChange={e => setFile(e.target.files?.[0] || null)}
                     />
                 </label>

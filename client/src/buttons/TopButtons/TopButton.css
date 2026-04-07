@@ -1,61 +1,123 @@
-.top-button {
-  position: relative;
-  page-orientation: initial;
-  width: 200px;  
-  height: 50px;
-  line-height: normal;
-  border-radius: 10px;
-  border: 1px solid transparent;
-  font-weight: 500;
-  font-size: 21px;
-  text-align: center;
-  color: rgb(21, 2, 66);
-  background:scroll;
-  text-decoration: none;
-  cursor: pointer;
-  white-space: nowrap;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-
-}
-.top-button:hover {
-  box-shadow: 0 0 15px rgba(255,255,255,0.6);
-  transform: scale(1.05);
-  transition: 0.2s;
-  text-shadow: 0 0 15px #04063c3b;
-  color: rgb(102, 4, 199);
-  background-color: #04063c00;
-}
-.navbar {
-  position: fixed;   
-  top: 0;
-  left: 0;
-  width: 100%;      
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center; 
-  background-color: #f0f8ff;
-  
-  
-}
 
 :root {
-  --navbar-height: 80px;
+  --navbar-height: 5em; 
+  --button-width: 12em; 
+  --button-height: 2.5em; 
 }
+
 
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: var(--navbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f8ff;
+  padding: 0 1em;
+  z-index: 1000;
+  box-sizing: border-box;
 }
 
-.content {
-  margin-top: var(--navbar-height);
+
+.menu {
+  display: flex;
+  gap: 1em;
+  align-items: center;
 }
 
 
+
+.top-button {
+  width: var(--button-width);
+  height: var(--button-height);
+  border-radius: 0.5em;
+  border: 1px solid transparent;
+  font-weight: 500;
+  font-size: 1em;
+  color: rgb(21, 2, 66);
+  text-decoration: none;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.top-button:hover {
+  box-shadow: 0 0 0.8em rgba(255,255,255,0.6);
+  transform: scale(1.05);
+  color: rgb(102, 4, 199);
+}
+
+
+
+.profile-link {
+  position: absolute;
+  right: 1em;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.avatar_link {
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.menu-btn {
+  display: none;
+  font-size: 2em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  right: 20px;
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+
+@media (max-width: 768px) {
+
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 0.5em;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+
+  .menu {
+    display: none;
+    position: absolute;
+    top: var(--navbar-height);
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background-color: #f0f8ff;
+    padding: 0.5em 0;
+    box-sizing: border-box;
+  }
+
+  .menu.active {
+    display: flex;
+  }
+
+  .top-button {
+    width: 100%;
+  }
+
+  .profile-link {
+    position: static;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.5em;
+  }
+}

@@ -40,7 +40,7 @@ export default function SidebarArticleList() {
     if (error) return <div>Помилка: {error}</div>
 
     return (
-        <div className="sidebar-list">
+        <aside className="sidebar-list">
             {articles.map(article => {
                 const idStr = String(article.id)
                 const hashId = location.hash && location.hash.startsWith("#article-")
@@ -64,6 +64,6 @@ export default function SidebarArticleList() {
                     </NavLink>
                 )
             })}
-        </div>
+        </aside>
     )
 }

@@ -70,7 +70,6 @@ export default function ArticlesPage() {
                 <TopButtons />
             </header>
             <div className="content"></div>
-
             <nav>
                 <SidebarArticleList />
             </nav>

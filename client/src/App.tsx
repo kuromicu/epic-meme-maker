@@ -13,26 +13,29 @@ import NotFoundPage from "./pages/NotFound.page"
 import LoginPage from "./pages/Login.page"
 import RegisterPage from "./pages/Register.page"
 import ContactUsPage from "./pages/ContactUs.page"
+import { AuthProvider } from "./components/AuthProvider"
 
 
 function App() {  
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />}/>
-      <Route path="/home" element={<HomePage />}/>
-      <Route path="/about" element={<AboutPage />}/>
-      <Route path="/meme-editor" element={<MemeEditorPage />}/>
-      <Route path="/memes" element={<MemesPage />}/>
-      <Route path="/profile" element={<ProfilePage/>}/>
-      <Route path="/login" element={<LoginPage/>}/>
-      <Route path="/register" element={<RegisterPage/>}/>
-      <Route path="/articles/:article_id" element={<ArticlePage/>}/>
-      <Route path="/articles" element={<ArticlesPage/>}/>
-      <Route path="/article-editor" element={<ArticleEditorPage/>}/>
-      <Route path="/contact" element={<ContactUsPage/>}/>
-      <Route path="/404" element={<NotFoundPage/>}/>
-      <Route path="*" element={<NotFoundPage/>}/>
-    </Routes>  
+    <AuthProvider>
+        <Routes>
+        <Route path="/" element={<HomePage />}/>
+        <Route path="/home" element={<HomePage />}/>
+        <Route path="/about" element={<AboutPage />}/>
+        <Route path="/meme-editor" element={<MemeEditorPage />}/>
+        <Route path="/memes" element={<MemesPage />}/>
+        <Route path="/profile" element={<ProfilePage/>}/>
+        <Route path="/login" element={<LoginPage/>}/>
+        <Route path="/register" element={<RegisterPage/>}/>
+        <Route path="/articles/:article_id" element={<ArticlePage/>}/>
+        <Route path="/articles" element={<ArticlesPage/>}/>
+        <Route path="/article-editor" element={<ArticleEditorPage/>}/>
+        <Route path="/contact" element={<ContactUsPage/>}/>
+        <Route path="/404" element={<NotFoundPage/>}/>
+        <Route path="*" element={<NotFoundPage/>}/>
+      </Routes>
+    </AuthProvider>
   )
 }
 

@@ -1,0 +1,37 @@
+.meme-setup {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.meme-editor {
+    display: flex;
+    flex-direction: row;
+    gap: 48px;
+    min-width: 700px;
+}
+
+.meme-editor .meme-text-input {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.meme-editor .gradient-button {
+    width: 100%;
+    max-height: 48px;
+}
+
+.meme-editor .image-container {
+    width: 400px;
+    height: 400px;
+}
+
+.meme-editor > * {
+    flex: 1;
+}
+
+.content {
+    width: 70vw;
+}

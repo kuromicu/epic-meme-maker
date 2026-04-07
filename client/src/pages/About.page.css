@@ -1,3 +1,4 @@
+/* Base styles (Desktop) */
 .about-content {
     max-width: 700px;
     min-width: 500px;
@@ -22,11 +23,58 @@
     text-align: justify;
 }
 
-.contact-link{
+.contact-link {
     color: #3569e0;
     text-decoration: none;
     transition: color 0.2s;
-    text-decoration: underline dashed;
     border-bottom: 1px dashed rgb(64, 138, 228);
     font-size: 20px;
+}
+
+
+/* Tablet (≤ 1024px) */
+@media (max-width: 1024px) {
+    .about-content {
+        max-width: 90%;
+        min-width: unset;
+        padding: 18px;
+    }
+
+    .about-title {
+        font-size: 24px;
+    }
+
+    .about-text {
+        font-size: 15px;
+    }
+
+    .contact-link {
+        font-size: 18px;
+    }
+}
+
+
+/* Mobile (≤ 600px) */
+@media (max-width: 600px) {
+    .about-content {
+        max-width: 95%;
+        margin: 20px auto;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .about-title {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .about-text {
+        font-size: 14px;
+        line-height: 1.5;
+        text-align: left; /* better readability on small screens */
+    }
+
+    .contact-link {
+        font-size: 16px;
+    }
 }

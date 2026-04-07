@@ -1,36 +1,40 @@
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import "./Auth.page.css"
+import { useAuth } from "../components/AuthProvider"
 
 export default function LoginPage() {
-    const [login, setLogin] = useState("")
+    const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [remember, setRemember] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
+    const { login } = useAuth()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setError(null)
-        if (!login || !password) {
-            setError("Please enter login and password")
+        if (!username || !password) {
+            setError("Please enter username and password")
             return
         }
 
         try {
             setLoading(true)
-            const res = await fetch("http://localhost:8000/login", {
+            const res = await fetch("http://localhost:8000/users/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ login, password, remember })
+                body: JSON.stringify({ username, password, remember })
             })
 
             if (!res.ok) {
                 const payload = await res.json().catch(() => ({}))
                 throw new Error(payload.message || `Login failed: ${res.status}`)
             }
-
+            const data = await res.json()
+            login(data.access_token)
+            
             navigate("/profile")
         } catch (err) {
             setError(err instanceof Error ? err.message : String(err))
@@ -40,6 +44,9 @@ export default function LoginPage() {
     }
 
     return (
+        <>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <div className="auth-page">
             <form className="auth-form" onSubmit={handleSubmit}>
                 <h2>Login</h2>
@@ -47,7 +54,7 @@ export default function LoginPage() {
 
                 <label>
                     Login
-                    <input type="text" value={login} onChange={e => setLogin(e.target.value)} />
+                    <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
                 </label>
 
                 <label>
@@ -61,7 +68,7 @@ export default function LoginPage() {
                         checked={remember}
                         onChange={e => setRemember(e.target.checked)}
                     />
-                    Remember me
+                    <>Remember me</>
                 </label>
                 </div>
                 <button type="submit" className="auth-submit" disabled={loading}>
@@ -71,7 +78,12 @@ export default function LoginPage() {
                 <div className="auth-footer">
                     Don't have an account? <Link to="/register">Register</Link>
                 </div>
+
+                <Link to="/home" className="auth-submit">
+                    Continue without account
+                </Link>
             </form>
         </div>
+    </>
     )
 }

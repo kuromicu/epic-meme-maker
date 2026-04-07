@@ -28,9 +28,9 @@ function AboutPage(){
                         <p>Follow us on social media for updates and memes!</p>
                     </div>
                 </div>
-                <NavLink to="/contact">
-                    contact us
-                </NavLink>
+            <footer>
+                <p>© 2026 Hedgehog Afanasiy</p>
+            </footer>
             
         </>
     )

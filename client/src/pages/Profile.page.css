@@ -1,0 +1,80 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #ffffff;
+}
+
+.profile-page {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.profile-card {
+    background: #f0f8ff;
+    padding: 30px 25px;
+    border-radius: 12px;
+    width: 300px;
+    text-align: center;
+}
+
+.avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.profile-card h2 {
+    margin: 5px 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.profile-card p {
+    margin: 0;
+    font-size: 14px;
+    color: #777;
+}
+
+.status {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #999;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.stats div {
+    text-align: center;
+}
+
+.stats span {
+    display: block;
+    font-size: 16px;
+}
+
+.stats p {
+    font-size: 12px;
+    color: #999;
+}
+
+.logout-btn {
+    margin-top: 25px;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.logout-btn:hover {
+    background: #f2f2f2;
+}

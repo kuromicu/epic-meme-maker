@@ -87,7 +87,12 @@ export default function RegisterPage() {
 
                 <div className="auth-footer">
                     Already have an account? <Link to="/login">Login</Link>
+
                 </div>
+
+                <Link to="/home" className="auth-submit">
+                    Continue without account
+                </Link>
             </form>
         </div>
     )
