@@ -23,6 +23,13 @@ class UserRepository:
         user = await database.scalar(stmt)
         return user
     
+    
+    async def get_user_by_username(self, username, database):
+        stmt = select(User).where(User.username == username)
+        user = await database.scalar(stmt)
+        return user
+    
+    
     async def update_user_by_id(self, user_id, user_update: UserUpdate, database):
         stmt = update(User).where(User.id == user_id).values(**user_update.model_dump(exclude_unset=True)).returning(User)
         user = await database.scalar(stmt)

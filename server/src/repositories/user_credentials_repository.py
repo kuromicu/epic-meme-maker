@@ -21,3 +21,8 @@ class UserCredentialsRepository:
         await database.execute(stmt)
         await database.commit()
         
+        
+    async def get_user_credentials_by_user_id(self, user_id, database):
+        stmt = select(UserCredentials).where(UserCredentials.user_id == user_id)
+        user_credentials = await database.scalar(stmt)
+        return user_credentials
