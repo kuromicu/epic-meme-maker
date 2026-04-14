@@ -9,10 +9,11 @@ from src.services.database import get_db
 
 class MemeRepository:
     
-    async def create_meme(self, meme_create: MemeCreate, database):
-        stmt = insert(Meme).values(**meme_create.model_dump())
-        await database.execute(stmt)
+    async def create_meme(self, meme_create: MemeCreate, database) -> int:
+        stmt = insert(Meme).values(**meme_create.model_dump()).returning(Meme.id)
+        meme_id = await database.scalar(stmt)
         await database.commit()
+        return meme_id
     
     async def get_meme_by_id(self, meme_id, database):
         stmt = select(Meme).where(Meme.id == meme_id)

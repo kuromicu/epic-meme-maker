@@ -31,3 +31,9 @@ class MemeCreate(BaseModel):
 class MemeUpdate(BaseModel):
     status: Optional[Literal["draft", "published"]]
     repost_count: int
+
+
+class MemeGenerateResponse(BaseModel):
+    meme_id: int
+    filename: str
+    url: str
