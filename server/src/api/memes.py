@@ -117,3 +117,8 @@ async def get_posts_by_meme_id(meme_id: int, database=Depends(get_db)):
 @router.delete("/memes/{meme_id}/posts")
 async def delete_posts_by_meme_id(meme_id: int, database=Depends(get_db)):
     await post_repository.delete_post_by_meme_id(meme_id=meme_id, database=database)
+    
+    
+@router.get("/memes")
+async def get_memes(database=Depends(get_db)):
+    return await meme_repository.get_all_memes(database)

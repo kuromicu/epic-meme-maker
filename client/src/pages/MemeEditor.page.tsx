@@ -238,6 +238,9 @@ function MemeEditorPage() {
           </div>
         </div>
       </div>
+        <footer>
+          <p>© 2026 Hedgehog Afanasiy</p>
+        </footer>
     </>
   );
 }

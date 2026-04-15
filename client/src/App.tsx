@@ -14,6 +14,7 @@ import LoginPage from "./pages/Login.page"
 import RegisterPage from "./pages/Register.page"
 import ContactUsPage from "./pages/ContactUs.page"
 import { AuthProvider } from "./components/AuthProvider"
+import MemeDetailPage from "./pages/MemeDetail.page"
 
 
 function App() {  
@@ -25,6 +26,7 @@ function App() {
         <Route path="/about" element={<AboutPage />}/>
         <Route path="/meme-editor" element={<MemeEditorPage />}/>
         <Route path="/memes" element={<MemesPage />}/>
+        <Route path="/memes/:id" element={<MemeDetailPage />}/>
         <Route path="/profile" element={<ProfilePage/>}/>
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/register" element={<RegisterPage/>}/>

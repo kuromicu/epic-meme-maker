@@ -1,6 +1,8 @@
 from hashlib import sha256
+from select import select
 
 from fastapi import APIRouter, Depends, Header
+from src.models.meme import Meme
 from src.services.auth import create_access_token, decode_access_token
 from src.models.user_credentials import UserCredentialsCreate
 from src.repositories.user_credentials_repository import UserCredentialsRepository
@@ -84,7 +86,10 @@ async def delete_meme_by_creator_id(user_id: int, database=Depends(get_db)):
     
 @router.get("/users/{user_id}/memes")
 async def get_memes_by_creator_id(user_id: int, database=Depends(get_db)):
-    return await meme_repository.get_memes_by_creator_id(creator_id=user_id, database=database)
+    return await meme_repository.get_memes_by_creator_id(
+        creator_id=user_id,
+        database=database
+    )
 
 @router.get("/users/{user_id}/posts")
 async def get_posts_by_creator_id(user_id: int, database=Depends(get_db)):
