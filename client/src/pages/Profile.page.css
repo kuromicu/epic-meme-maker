@@ -1,7 +1,6 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #ffffff;
 }
 
 .profile-page {
@@ -11,37 +10,33 @@ body {
 }
 
 .profile-card {
-    background: #f0f8ff;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
     padding: 30px 25px;
     border-radius: 12px;
     width: 300px;
     text-align: center;
 }
 
-.avatar {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-}
+
 
 .profile-card h2 {
     margin: 5px 0;
     font-size: 20px;
     font-weight: 500;
+    color: var(--fg-heading);
 }
 
 .profile-card p {
     margin: 0;
     font-size: 14px;
-    color: #777;
+    color: var(--fg-muted);
 }
 
 .status {
     margin-top: 8px;
     font-size: 13px;
-    color: #999;
+    color: var(--fg-muted);
 }
 
 .stats {

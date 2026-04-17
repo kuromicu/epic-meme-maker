@@ -1,6 +1,7 @@
 
 import TopButtons from "../buttons/TopButtons/TopButtons"
 import { useAuth } from "../components/AuthProvider"
+import UserAvatar from "../components/UserAvatar"
 import { useNavigate } from "react-router-dom"
 import "./Profile.page.css"
 
@@ -23,11 +24,12 @@ function ProfilePage() {
 
             <div className="profile-page">
                 <div className="profile-card">
-                    <img
-                        className="avatar"
-                        src={user.avatar_resource_filename ? `http://localhost:8000/resources/${user.avatar_resource_filename}` : "/default-avatar.png"}
-                        alt="avatar"
-/>
+                    <UserAvatar
+                        username={user.username}
+                        avatarFilename={user.avatarResourceFilename}
+                        size={90}
+                        style={{ margin: "0 auto 15px" }}
+                    />
 
                     <h2>{user.username}</h2>
                     <p>{user.email}</p>

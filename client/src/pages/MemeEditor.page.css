@@ -1,7 +1,7 @@
 /* ── Page title ── */
 .meme-editor-title {
     font-size: 1.8rem;
-    color: #1a1a2e;
+    color: var(--fg-heading);
     margin: 0 0 20px;
 }
 
@@ -104,9 +104,9 @@
 .meme-right-panel {
     flex: 1;
     min-width: 260px;
-    border: 1.5px solid #c9d8ee;
+    border: 1.5px solid var(--border);
     border-radius: 6px;
-    background: #ffffff;
+    background: var(--bg-card);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -121,7 +121,7 @@
 
 .meme-divider {
     height: 1px;
-    background: #e5e7eb;
+    background: var(--border);
     flex-shrink: 0;
 }
 
@@ -129,17 +129,19 @@
 .meme-label {
     font-size: 0.82rem;
     font-weight: 600;
-    color: #374151;
+    color: var(--fg);
 }
 
 .meme-text-input {
     padding: 7px 10px;
     font-size: 14px;
-    border: 1.5px solid #d1d5db;
+    border: 1.5px solid var(--border);
     border-radius: 5px;
     outline: none;
     font-family: Impact, Arial, sans-serif;
     letter-spacing: 0.02em;
+    background: var(--bg);
+    color: var(--fg);
     transition: border-color 150ms, box-shadow 150ms;
 }
 
@@ -157,7 +159,7 @@
 
 .meme-style-label {
     font-size: 0.82rem;
-    color: #374151;
+    color: var(--fg);
     width: 44px;
     flex-shrink: 0;
 }
@@ -165,11 +167,11 @@
 .meme-select {
     flex: 1;
     padding: 5px 8px;
-    border: 1.5px solid #d1d5db;
+    border: 1.5px solid var(--border);
     border-radius: 5px;
     font-size: 13px;
-    background: #fff;
-    color: #111;
+    background: var(--bg);
+    color: var(--fg);
     outline: none;
     cursor: pointer;
     transition: border-color 150ms;
@@ -192,7 +194,7 @@
     align-items: center;
     gap: 8px;
     font-size: 0.88rem;
-    color: #374151;
+    color: var(--fg);
     cursor: pointer;
 }
 

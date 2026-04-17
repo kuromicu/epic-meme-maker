@@ -11,6 +11,15 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* ── Dark-mode palette (default) ── */
+  --bg:          #242424;
+  --bg-card:     #2e2e40;
+  --bg-nav:      #1a1a2a;
+  --fg:          rgba(226, 232, 240, 0.9);
+  --fg-muted:    #94a3b8;
+  --fg-heading:  #e2e8f0;
+  --border:      #3f3f5a;
 }
 
 a {
@@ -34,7 +43,7 @@ h1 {
   font-size: 33px;
   line-height: 1.1;
   position: relative;
-  color: #0b0e42;
+  color: var(--fg-heading);
 }
 
 .verstappen-container {
@@ -67,6 +76,15 @@ button:focus-visible {
   :root {
     color: #213547;
     background-color: #ffffff;
+
+    /* ── Light-mode palette ── */
+    --bg:          #ffffff;
+    --bg-card:     #f0f8ff;
+    --bg-nav:      #f0f8ff;
+    --fg:          #213547;
+    --fg-muted:    #6b7280;
+    --fg-heading:  #1a1a2e;
+    --border:      #e5e7eb;
   }
   a:hover {
     color: #72007d;

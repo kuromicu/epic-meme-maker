@@ -64,7 +64,7 @@
 
 .reposts {
   font-size: 14px;
-  color: #666;
+  color: var(--fg-muted);
 }
 
 .cta {
@@ -88,6 +88,7 @@
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 14px;
+  color: var(--fg-heading);
 }
 
 /* GRID */

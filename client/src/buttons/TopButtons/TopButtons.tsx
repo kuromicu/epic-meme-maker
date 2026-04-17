@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import "./TopButton.css"
 import { useAuth } from '../../components/AuthProvider';
+import UserAvatar from '../../components/UserAvatar';
 import { useState } from "react"
 
 function TopButtons() {
@@ -39,12 +40,16 @@ function TopButtons() {
                     Create Meme
                 </Link>
 
+                <Link to="/post-editor" className="top-button">
+                    Create Post
+                </Link>
+
                 {user ? (
                     <Link to="/profile" className="top-button profile-link">
-                        <img 
-                            src={`http://localhost:8000/resources/${user.avatar_resource_filename}`}
-                            alt="avatar"
-                            className="avatar_link"
+                        <UserAvatar
+                            username={user.username}
+                            avatarFilename={user.avatarResourceFilename}
+                            size={38}
                         />
                         <span>{user.username}</span>
                     </Link>

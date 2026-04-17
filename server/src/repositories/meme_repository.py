@@ -40,7 +40,7 @@ class MemeRepository:
         return result.scalars().all()
     
     async def get_all_memes(self, database):
-        result = await database.execute(select(Meme))
+        result = await database.execute(select(Meme).where(Meme.status == "published"))
         memes = result.scalars().all()
 
         return [
@@ -52,4 +52,4 @@ class MemeRepository:
                 "repost_count": m.repost_count,
             }
             for m in memes
-        ]        
+        ]
