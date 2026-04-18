@@ -4,6 +4,7 @@ from fastapi import Depends
 from sqlalchemy import insert, select, update, delete
 from src.models.post import Post, PostCreate
 from src.models.meme import Meme
+from src.models.user import User
 from src.services.database import get_db
 
 
@@ -46,7 +47,11 @@ class PostRepository:
         return result.scalars().all()
 
     async def get_all_posts_with_memes(self, database):
-        stmt = select(Post, Meme).join(Meme, Post.meme_id == Meme.id)
+        stmt = (
+            select(Post, Meme, User)
+            .join(Meme, Post.meme_id == Meme.id)
+            .join(User, Post.creator_id == User.id)
+        )
         result = await database.execute(stmt)
         rows = result.all()
         return [
@@ -54,6 +59,8 @@ class PostRepository:
                 "post_id": post.id,
                 "meme_id": meme.id,
                 "creator_id": post.creator_id,
+                "creator_username": user.username,
+                "creator_avatar_filename": user.avatar_resource_filename,
                 "like_count": post.like_count,
                 "date_of_creation": post.date_of_creation,
                 "caption": post.caption,
@@ -61,5 +68,5 @@ class PostRepository:
                 "meme_top_text": meme.top_text,
                 "meme_bottom_text": meme.bottom_text,
             }
-            for post, meme in rows
+            for post, meme, user in rows
         ]

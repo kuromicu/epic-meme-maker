@@ -1,7 +1,9 @@
+import os
+import uuid
 from hashlib import sha256
 from select import select
 
-from fastapi import APIRouter, Depends, Header
+from fastapi import APIRouter, Depends, File, Header, UploadFile
 from src.models.meme import Meme
 from src.services.auth import create_access_token, decode_access_token
 from src.models.user_credentials import UserCredentialsCreate
@@ -106,6 +108,19 @@ async def register_user(user_register: UserRegister):
     
     
     
+
+
+@router.post("/users/{user_id}/avatar")
+async def upload_user_avatar(user_id: int, image: UploadFile = File(...), database=Depends(get_db)):
+    ext = os.path.splitext(image.filename or "avatar.jpg")[1] or ".jpg"
+    filename = f"avatar_{uuid.uuid4().hex}{ext}"
+    filepath = os.path.join("./resources", filename)
+    content = await image.read()
+    with open(filepath, "wb") as f:
+        f.write(content)
+    user_update = UserUpdate(avatar_resource_filename=filename)
+    await user_repository.update_user_by_id(user_id=user_id, user_update=user_update, database=database)
+    return {"avatar_resource_filename": filename}
 
 
 @router.get("/users/username/{username}")

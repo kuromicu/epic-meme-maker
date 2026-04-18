@@ -1,19 +1,9 @@
-import { get } from "http";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getAuthenticatedUser } from "../api/auth";
-
-type User = {
-  id: string;
-  email: string;
-  status: string;
-  username: string;
-  subscribersCount: number;
-  subscriptionsCount: number;
-  avatarResourceFilename: string | null;
-};
+import type { AuthUser } from "../api/auth";
 
 type AuthContextType = {
-  user: User | null;
+  user: AuthUser | null;
   isAuthenticated: boolean;
   loading: boolean;
   login: (token: string) => Promise<void>;
@@ -24,7 +14,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
 
   const tokenKey = "access_token";

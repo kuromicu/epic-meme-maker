@@ -1,13 +1,18 @@
 
+import { useRef, useState } from "react"
 import TopButtons from "../buttons/TopButtons/TopButtons"
 import { useAuth } from "../components/AuthProvider"
 import UserAvatar from "../components/UserAvatar"
+import { uploadAvatar } from "../api/auth"
 import { useNavigate } from "react-router-dom"
 import "./Profile.page.css"
 
 function ProfilePage() {
-    const { user, logout } = useAuth()
+    const { user, logout, refreshUser } = useAuth()
     const navigate = useNavigate()
+    const fileInputRef = useRef<HTMLInputElement>(null)
+    const [avatarUploading, setAvatarUploading] = useState(false)
+    const [avatarError, setAvatarError] = useState<string | null>(null)
 
     if (!user) {
         return <div>Not authorized</div>
@@ -18,18 +23,51 @@ function ProfilePage() {
         navigate("/register")
     }
 
+    const handleAvatarClick = () => {
+        fileInputRef.current?.click()
+    }
+
+    const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+        setAvatarUploading(true)
+        setAvatarError(null)
+        try {
+            await uploadAvatar(user.id, file)
+            await refreshUser()
+        } catch {
+            setAvatarError("Failed to upload avatar.")
+        } finally {
+            setAvatarUploading(false)
+            if (fileInputRef.current) fileInputRef.current.value = ""
+        }
+    }
+
     return (
         <>
             <TopButtons/>
 
             <div className="profile-page">
                 <div className="profile-card">
-                    <UserAvatar
-                        username={user.username}
-                        avatarFilename={user.avatarResourceFilename}
-                        size={90}
-                        style={{ margin: "0 auto 15px" }}
+                    <div className="avatar-upload-wrapper" onClick={handleAvatarClick} title="Click to change avatar">
+                        <UserAvatar
+                            username={user.username}
+                            avatarFilename={user.avatarResourceFilename}
+                            size={90}
+                            style={{ margin: "0 auto" }}
+                        />
+                        <div className="avatar-upload-overlay">
+                            {avatarUploading ? "…" : "✎"}
+                        </div>
+                    </div>
+                    <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        style={{ display: "none" }}
+                        onChange={handleAvatarChange}
                     />
+                    {avatarError && <p className="avatar-error">{avatarError}</p>}
 
                     <h2>{user.username}</h2>
                     <p>{user.email}</p>
@@ -38,11 +76,11 @@ function ProfilePage() {
 
                     <div className="stats">
                         <div>
-                            <span>{user.subscribers_count}</span>
+                            <span>{user.subscribersCount}</span>
                             <p>Subscribers</p>
                         </div>
                         <div>
-                            <span>{user.subscriptions_count}</span>
+                            <span>{user.subscriptionsCount}</span>
                             <p>Subscriptions</p>
                         </div>
                     </div>

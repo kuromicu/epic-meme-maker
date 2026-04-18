@@ -4,6 +4,8 @@ export interface PostData {
     post_id: number;
     meme_id: number;
     creator_id: number;
+    creator_username: string;
+    creator_avatar_filename: string | null;
     like_count: number;
     date_of_creation: number | null;
     caption: string | null;

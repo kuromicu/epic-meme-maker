@@ -24,7 +24,7 @@ class UserUpdate(BaseModel):
     username: Optional[str] = None
     email: Optional[str] = None
     avatar_resource_filename: Optional[str] = None
-    status: Optional[Literal["regular", "moderator"]] 
+    status: Optional[Literal["regular", "moderator"]] = None
     subscriptions_count: Optional[int] = None
     subscribers_count: Optional[int] = None
     
