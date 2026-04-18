@@ -40,10 +40,6 @@ function TopButtons() {
                     Create Meme
                 </Link>
 
-                <Link to="/post-editor" className="top-button">
-                    Create Post
-                </Link>
-
                 {user ? (
                     <Link to="/profile" className="top-button profile-link">
                         <UserAvatar
@@ -62,6 +58,7 @@ function TopButtons() {
             </div>
 
         </div>
+
     )
 }
 

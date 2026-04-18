@@ -5,7 +5,7 @@ from select import select
 
 from fastapi import APIRouter, Depends, File, Header, UploadFile
 from src.models.meme import Meme
-from src.services.auth import create_access_token, decode_access_token
+from src.services.auth import create_access_token, decode_access_token, get_user_id_from_authorization
 from src.models.user_credentials import UserCredentialsCreate
 from src.repositories.user_credentials_repository import UserCredentialsRepository
 from src.repositories.user_repository import UserRepository
@@ -94,8 +94,9 @@ async def get_memes_by_creator_id(user_id: int, database=Depends(get_db)):
     )
 
 @router.get("/users/{user_id}/posts")
-async def get_posts_by_creator_id(user_id: int, database=Depends(get_db)):
-    return await post_repository.get_posts_by_creator_id(creator_id=user_id, database=database)
+async def get_posts_by_creator_id(user_id: int, authorization: str | None = Header(default=None), database=Depends(get_db)):
+    current_user_id = await get_user_id_from_authorization(authorization)
+    return await post_repository.get_posts_by_creator_id(creator_id=user_id, database=database, current_user_id=current_user_id)
 
 @router.delete("/users/{user_id}/posts")
 async def delete_posts_by_creator_id(user_id: int, database=Depends(get_db)):

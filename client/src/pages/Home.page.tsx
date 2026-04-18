@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import TopButtons from "../buttons/TopButtons/TopButtons"
 import UserAvatar from "../components/UserAvatar"
+import LikeButton from "../components/LikeButton"
 import { fetchPosts, type PostData } from "../api/posts"
 import "./Home.page.css"
 
@@ -61,13 +62,20 @@ function HomePage() {
                                         />
                                         <span>
                                             created by{" "}
-                                            <a className="post-card-creator-link" href="#">
+                                            <Link
+                                                to={`/users/${post.creator_id}`}
+                                                className="post-card-creator-link"
+                                            >
                                                 {post.creator_username}
-                                            </a>
+                                            </Link>
                                         </span>
                                     </div>
                                     <div className="post-card-likes">
-                                        ♥ {post.like_count}
+                                        <LikeButton
+                                            postId={post.post_id}
+                                            initialCount={post.like_count}
+                                            initialHasLiked={post.has_liked}
+                                        />
                                     </div>
                                     <div className="post-card-date">
                                         {formatDate(post.date_of_creation)}
@@ -77,13 +85,13 @@ function HomePage() {
                         </div>
                     ))}
                 </div>
-            </main>
 
-            <aside className="create-post">
-                <Link to="/post-editor" className="create-button">
-                    Create your own post
-                </Link>
-            </aside>
+                <aside className="create-post">
+                    <Link to="/post-editor" className="create-button">
+                        Create your own post
+                    </Link>
+                </aside>
+            </main>
 
             <footer>
                 <p>© 2026 Hedgehog Afanasiy</p>

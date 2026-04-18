@@ -28,3 +28,13 @@ async def decode_access_token(token: str):
         print(f"{e}")
 
         return None
+
+
+async def get_user_id_from_authorization(authorization: str | None) -> int | None:
+    if not authorization or not authorization.startswith("Bearer "):
+        return None
+    payload = await decode_access_token(authorization[len("Bearer "):])
+    if not payload:
+        return None
+    sub = payload.get("sub")
+    return int(sub) if sub else None

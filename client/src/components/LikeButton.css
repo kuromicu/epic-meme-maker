@@ -1,0 +1,44 @@
+.like-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--fg-muted);
+    font-size: 12px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s, background 0.15s, transform 0.1s;
+    box-shadow: none;
+}
+
+.like-button:hover:not(:disabled) {
+    color: #ef4444;
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.like-button:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+.like-button.liked {
+    color: #ef4444;
+    border-color: #ef4444;
+}
+
+.like-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.like-button-icon {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.like-button-count {
+    font-variant-numeric: tabular-nums;
+}

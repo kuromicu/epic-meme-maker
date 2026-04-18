@@ -16,6 +16,7 @@ import ContactUsPage from "./pages/ContactUs.page"
 import { AuthProvider } from "./components/AuthProvider"
 import MemeDetailPage from "./pages/MemeDetail.page"
 import PostEditorPage from "./pages/PostEditor.page"
+import UserProfilePage from "./pages/UserProfile.page"
 
 
 function App() {  
@@ -35,6 +36,7 @@ function App() {
         <Route path="/articles" element={<ArticlesPage/>}/>
         <Route path="/article-editor" element={<ArticleEditorPage/>}/>
         <Route path="/post-editor" element={<PostEditorPage/>}/>
+        <Route path="/users/:user_id" element={<UserProfilePage/>}/>
         <Route path="/contact" element={<ContactUsPage/>}/>
         <Route path="/404" element={<NotFoundPage/>}/>
         <Route path="*" element={<NotFoundPage/>}/>

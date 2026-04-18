@@ -1,7 +1,6 @@
 .home-container {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: calc(var(--navbar-height, 70px) + 24px) 20px 40px;
+    padding-top: calc(var(--navbar-height, 5em) + 24px);
+    padding-bottom: 48px;
 }
 
 .home-title {
@@ -10,65 +9,98 @@
     margin: 0 0 24px;
 }
 
-/* Posts grid */
+/* Posts grid — 3 explicit columns, responsive */
 .posts-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
-/* Post card */
+@media (max-width: 900px) {
+    .posts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .posts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Post card — fixed total height */
 .post-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    transition: box-shadow 0.2s;
+    transition: box-shadow 0.2s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    height: 370px;
 }
 
 .post-card:hover {
     box-shadow: 0 6px 22px rgba(0, 0, 0, 0.14);
+    transform: translateY(-2px);
 }
 
+/* Fixed image area — full meme visible (letterboxed) */
 .post-card-image {
     width: 100%;
-    max-height: 480px;
+    height: 230px;
+    flex-shrink: 0;
     object-fit: contain;
-    background: #000;
     display: block;
+    background: var(--bg-card);
 }
 
+/* Body fills remaining height */
 .post-card-body {
-    padding: 14px 18px 18px;
+    flex: 1;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .post-card-caption {
-    font-size: 15px;
+    font-size: 14px;
     color: var(--fg);
-    margin: 0 0 12px;
-    line-height: 1.5;
+    margin: 0 0 8px;
+    line-height: 1.4;
+    /* clamp to 2 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .post-card-meta {
     display: flex;
     align-items: center;
-    gap: 16px;
-    font-size: 13px;
+    gap: 12px;
+    font-size: 12px;
     color: var(--fg-muted);
     flex-wrap: wrap;
+    margin-top: auto;
 }
 
 .post-card-creator {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    min-width: 0;
 }
 
 .post-card-creator-link {
     color: #3b82f6;
     font-weight: 600;
     text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .post-card-creator-link:hover {
@@ -80,10 +112,12 @@
     display: flex;
     align-items: center;
     gap: 4px;
+    white-space: nowrap;
 }
 
 .post-card-date {
     margin-left: auto;
+    white-space: nowrap;
 }
 
 /* Status messages */
@@ -101,7 +135,7 @@
 
 /* Create post aside */
 .create-post {
-    position: fixed;
-    bottom: 32px;
-    right: 32px;
+    display: flex;
+    justify-content: center;
+    margin: 32px 0 0;
 }

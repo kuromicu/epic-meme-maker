@@ -1,10 +1,11 @@
 from contextlib import asynccontextmanager
 from src.services.database import engine, Base
 from fastapi import FastAPI
-from src.api.memes import router as memes_router 
+from src.api.memes import router as memes_router
 from src.api.users import router as users_router
 from src.api.posts import router as posts_router
 from src.api.articles import router as article_router
+from src.models.user_like import UserLike  # noqa: F401 — register metadata
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 @asynccontextmanager

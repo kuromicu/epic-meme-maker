@@ -80,8 +80,8 @@ export default function PostEditorPage() {
                 {success !== null && (
                     <div className="post-editor-success">
                         ✅ Post #{success} created!{" "}
-                        <button onClick={() => navigate("/memes")} className="post-editor-nav-btn">
-                            Browse memes
+                        <button onClick={() => navigate("/home")} className="post-editor-nav-btn">
+                            Browse posts
                         </button>
                     </div>
                 )}
