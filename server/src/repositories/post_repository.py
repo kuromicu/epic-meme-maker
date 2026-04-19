@@ -1,13 +1,11 @@
 import time
 from typing import List
-
-from fastapi import Depends
-from sqlalchemy import insert, select, update, delete, func
+from sqlalchemy.orm import aliased
+from sqlalchemy import insert, select, delete, func
 from src.models.post import Post, PostCreate
 from src.models.meme import Meme
 from src.models.user import User
 from src.models.user_like import UserLike
-from src.services.database import get_db
 
 
 class PostRepository:
@@ -98,6 +96,40 @@ class PostRepository:
         stmt = select(Post).where(Post.meme_id == meme_id)
         return await database.scalar(stmt)
 
+    async def get_all_posts_with_memes(self, database, current_user_id=None):
+        MemeCreator = aliased(User)
+        stmt = (
+            select(Post, Meme, User, MemeCreator)
+            .join(Meme, Post.meme_id == Meme.id)
+            .join(User, Post.creator_id == User.id)
+            .join(MemeCreator, Meme.creator_id == MemeCreator.id)
+        )
+        result = await database.execute(stmt)
+        rows = result.all()
+        post_ids = [post.id for post, _, _, _ in rows]
+        counts = await self._like_counts_for_posts(post_ids, database)
+        liked = await self._liked_post_ids(post_ids, current_user_id, database)
+        return [
+            {
+                "post_id": post.id,
+                "meme_id": meme.id,
+                "creator_id": post.creator_id,
+                "creator_username": user.username,
+                "creator_avatar_filename": user.avatar_resource_filename,
+                "meme_creator_id": meme_creator.id,
+                "meme_creator_username": meme_creator.username,
+                "meme_creator_avatar_filename": meme_creator.avatar_resource_filename,
+                "like_count": counts.get(post.id, 0),
+                "has_liked": post.id in liked,
+                "date_of_creation": post.date_of_creation,
+                "caption": post.caption,
+                "meme_url": f"http://localhost:8000/resources/{meme.image_resource_filename}",
+                "meme_top_text": meme.top_text,
+                "meme_bottom_text": meme.bottom_text,
+            }
+            for post, meme, user, meme_creator in rows
+        ]
+
     async def delete_post_by_id(self, post_id, database):
         stmt = delete(Post).where(Post.id == post_id)
         await database.execute(stmt)
@@ -116,35 +148,6 @@ class PostRepository:
     async def get_posts(self, database) -> List[Post]:
         result = await database.execute(select(Post))
         return result.scalars().all()
-
-    async def get_all_posts_with_memes(self, database, current_user_id=None):
-        stmt = (
-            select(Post, Meme, User)
-            .join(Meme, Post.meme_id == Meme.id)
-            .join(User, Post.creator_id == User.id)
-        )
-        result = await database.execute(stmt)
-        rows = result.all()
-        post_ids = [post.id for post, _, _ in rows]
-        counts = await self._like_counts_for_posts(post_ids, database)
-        liked = await self._liked_post_ids(post_ids, current_user_id, database)
-        return [
-            {
-                "post_id": post.id,
-                "meme_id": meme.id,
-                "creator_id": post.creator_id,
-                "creator_username": user.username,
-                "creator_avatar_filename": user.avatar_resource_filename,
-                "like_count": counts.get(post.id, 0),
-                "has_liked": post.id in liked,
-                "date_of_creation": post.date_of_creation,
-                "caption": post.caption,
-                "meme_url": f"http://localhost:8000/resources/{meme.image_resource_filename}",
-                "meme_top_text": meme.top_text,
-                "meme_bottom_text": meme.bottom_text,
-            }
-            for post, meme, user in rows
-        ]
 
     async def toggle_like(self, user_id: int, post_id: int, database):
         existing = await database.scalar(

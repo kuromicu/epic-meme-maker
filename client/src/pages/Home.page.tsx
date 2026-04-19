@@ -21,7 +21,7 @@ function HomePage() {
     useEffect(() => {
         fetchPosts()
             .then(data => {
-                setPosts(data.slice().reverse()) // newest first
+                setPosts(data.slice().reverse())
                 setError(null)
             })
             .catch(() => setError("Failed to load posts."))
@@ -33,8 +33,6 @@ function HomePage() {
             <TopButtons />
 
             <main className="home-container">
-                <h1 className="home-title">Posts</h1>
-
                 {loading && <p className="home-loading">Loading posts…</p>}
                 {error && <p className="home-error">{error}</p>}
                 {!loading && !error && posts.length === 0 && (
@@ -44,32 +42,40 @@ function HomePage() {
                 <div className="posts-grid">
                     {posts.map(post => (
                         <div key={post.post_id} className="post-card">
+
+                            {/* Шапка: автор поста + дата */}
+                            <div className="post-card-header">
+                                <UserAvatar
+                                    username={post.creator_username}
+                                    avatarFilename={post.creator_avatar_filename}
+                                    size={36}
+                                />
+                                <div className="post-card-header-info">
+                                    <Link
+                                        to={`/users/${post.creator_id}`}
+                                        className="post-card-username"
+                                    >
+                                        {post.creator_username}
+                                    </Link>
+                                    <span className="post-card-date">
+                                        {formatDate(post.date_of_creation)}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Картинка */}
                             <img
                                 src={post.meme_url}
                                 alt="meme"
                                 className="post-card-image"
                             />
+
+                            {/* Низ: caption + лайки + автор мему */}
                             <div className="post-card-body">
                                 {post.caption && (
                                     <p className="post-card-caption">{post.caption}</p>
                                 )}
                                 <div className="post-card-meta">
-                                    <div className="post-card-creator">
-                                        <UserAvatar
-                                            username={post.creator_username}
-                                            avatarFilename={post.creator_avatar_filename}
-                                            size={26}
-                                        />
-                                        <span>
-                                            created by{" "}
-                                            <Link
-                                                to={`/users/${post.creator_id}`}
-                                                className="post-card-creator-link"
-                                            >
-                                                {post.creator_username}
-                                            </Link>
-                                        </span>
-                                    </div>
                                     <div className="post-card-likes">
                                         <LikeButton
                                             postId={post.post_id}
@@ -77,11 +83,17 @@ function HomePage() {
                                             initialHasLiked={post.has_liked}
                                         />
                                     </div>
-                                    <div className="post-card-date">
-                                        {formatDate(post.date_of_creation)}
-                                    </div>
+                                </div>
+                                <div className="post-card-creator">
+                                    <span>
+                                        meme created by{" "}
+                                        <Link to={`/users/${post.meme_creator_id}`} className="post-card-creator-link">
+                                            {post.meme_creator_username}
+                                        </Link>
+                                    </span>
                                 </div>
                             </div>
+
                         </div>
                     ))}
                 </div>

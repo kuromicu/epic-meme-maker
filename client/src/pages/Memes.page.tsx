@@ -3,19 +3,20 @@
     import { useEffect, useState } from "react";
     import "./Memes.page.css";
 
-    type Meme = {
+type Meme = {
     meme_id: number;
+    id?: number;
     url: string;
-    };
+};
 
     export default function MemesPage() {
     const [memes, setMemes] = useState<Meme[]>([]);
     const [loading, setLoading] = useState(false);
 
-    const fetchMemes = async () => {
+    const fetchPublishedMemes = async () => {
         setLoading(true);
         try {
-        const res = await fetch("http://localhost:8000/memes");
+        const res = await fetch("http://localhost:8000/published/memes");
         const data = await res.json();
         setMemes(data);
         } finally {
@@ -24,7 +25,7 @@
     };
 
     useEffect(() => {
-        fetchMemes();
+        fetchPublishedMemes();
     }, []);
 
     return (

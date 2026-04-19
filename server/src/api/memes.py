@@ -122,3 +122,12 @@ async def delete_posts_by_meme_id(meme_id: int, database=Depends(get_db)):
 @router.get("/memes")
 async def get_memes(database=Depends(get_db)):
     return await meme_repository.get_all_memes(database)
+
+@router.get("/published/memes")
+async def get_published_memes(database=Depends(get_db)):
+    return await meme_repository.get_all_published_memes(database)
+
+
+@router.post("/memes/{meme_id}/repost")
+async def increment_reposts_count(meme_id: int, database=Depends(get_db)):
+    await meme_repository.increment_repost_count(meme_id=meme_id, database=database)

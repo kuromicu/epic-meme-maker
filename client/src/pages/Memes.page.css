@@ -41,3 +41,14 @@
     width: 100%;
     display: block;
 }
+
+
+.create-button {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 100;
+    width: 250px;
+    height: 50px;
+    font-size: large;
+}

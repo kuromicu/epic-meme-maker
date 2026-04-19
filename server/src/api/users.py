@@ -88,11 +88,22 @@ async def delete_meme_by_creator_id(user_id: int, database=Depends(get_db)):
     
 @router.get("/users/{user_id}/memes")
 async def get_memes_by_creator_id(user_id: int, database=Depends(get_db)):
-    return await meme_repository.get_memes_by_creator_id(
+    return await meme_repository.get_all_memes_by_creator_id(
+        creator_id=user_id,
+        database=database
+    )
+    
+@router.get("/users/{user_id}/memes/published")
+async def get_published_memes_by_creator_id(user_id: int, database=Depends(get_db)):
+    return await meme_repository.get_all_published_memes_by_creator_id(
         creator_id=user_id,
         database=database
     )
 
+@router.delete("/users/{users_id}/memes/published")
+async def delete_published_memes_by_creator_id(users_id: int, database=Depends(get_db)):
+    await meme_repository.delete_published_memes_by_creator_id(creator_id=users_id, database=database)
+    
 @router.get("/users/{user_id}/posts")
 async def get_posts_by_creator_id(user_id: int, authorization: str | None = Header(default=None), database=Depends(get_db)):
     current_user_id = await get_user_id_from_authorization(authorization)

@@ -54,7 +54,6 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 14px;
-    margin-bottom: 24px;
 }
 
 .post-editor-meme-card {
@@ -97,6 +96,8 @@
 /* Submit button */
 .post-editor-submit {
     display: block;
+    margin-left: auto;
+    margin-right: auto;
     padding: 11px 36px;
     background: linear-gradient(135deg, #3b82f6, #6366f1);
     color: #fff;
@@ -107,6 +108,13 @@
     cursor: pointer;
     transition: opacity 150ms, transform 150ms;
     box-shadow: 0 2px 10px rgba(99,102,241,0.35);
+}
+
+.post-editor-memes-scroll {
+    max-height: 480px;
+    overflow-y: auto;
+    padding-right: 4px;
+    margin-bottom: 24px;
 }
 
 .post-editor-submit:hover:not(:disabled) {

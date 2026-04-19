@@ -3,7 +3,7 @@ import { useRef, useState } from "react"
 import TopButtons from "../buttons/TopButtons/TopButtons"
 import { useAuth } from "../components/AuthProvider"
 import UserAvatar from "../components/UserAvatar"
-import UserContentTabs from "../components/UserContentTabs"
+import UserPersonalContentTabs from "../components/UserPersonalContentTabs"
 import { uploadAvatar } from "../api/auth"
 import { useNavigate } from "react-router-dom"
 import "./Profile.page.css"
@@ -91,7 +91,7 @@ function ProfilePage() {
                     </button>
                 </div>
 
-                <UserContentTabs userId={Number(user.id)} />
+                <UserPersonalContentTabs userId={Number(user.id)} />
             </div>
             <footer>
                 <p>© 2026 Hedgehog Afanasiy</p>

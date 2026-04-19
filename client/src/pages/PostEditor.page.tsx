@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import TopButtons from "../buttons/TopButtons/TopButtons";
 import { useAuth } from "../components/AuthProvider";
-import { fetchPublishedMemes, createPost } from "../api/posts";
+import { createPost } from "../api/posts";
 import "./PostEditor.page.css";
+import { fetchAllMemesByUser } from "../api/memes";
 
 type Meme = {
     meme_id: number;
@@ -15,6 +16,11 @@ type Meme = {
 export default function PostEditorPage() {
     const { user } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
+    const preselectedMeme = location.state?.meme ?? null;
+    const preselectedMemeId: number | null = preselectedMeme?.meme_id
+        ? Number(preselectedMeme.meme_id)
+        : null;
 
     const [memes, setMemes] = useState<Meme[]>([]);
     const [selectedMemeId, setSelectedMemeId] = useState<number | null>(null);
@@ -24,13 +30,26 @@ export default function PostEditorPage() {
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<number | null>(null);
 
-    useEffect(() => {
-        setLoading(true);
-        fetchPublishedMemes()
+useEffect(() => {
+    setLoading(true);
+    if (preselectedMeme) {
+        const memeId = Number(location.state?.meme?.meme_id) || Number(location.state?.memeId);
+        const meme: Meme = {
+            meme_id: memeId,
+            url: preselectedMeme.url,
+            top_text: null,
+            bottom_text: null,
+        };
+        setMemes([meme]);
+        setSelectedMemeId(memeId);
+        setLoading(false);
+    } else {
+        fetchAllMemesByUser(parseInt(user.id))
             .then(setMemes)
             .catch(() => setError("Failed to load memes."))
             .finally(() => setLoading(false));
-    }, []);
+    }
+}, [user]);
 
     const handleSubmit = async () => {
         if (!user) { setError("You must be logged in."); return; }
@@ -43,6 +62,7 @@ export default function PostEditorPage() {
                 meme_id: selectedMemeId,
                 caption: caption.trim() || undefined,
             });
+            await fetch(`http://localhost:8000/memes/${selectedMemeId}/repost`, { method: "POST" });
             setSuccess(res.post_id);
         } catch {
             setError("Failed to create post.");
@@ -55,7 +75,6 @@ export default function PostEditorPage() {
         <>
             <TopButtons />
             <div className="post-editor-page">
-                <h1 className="post-editor-title">Create a Post</h1>
 
                 {!user && (
                     <p className="post-editor-warning">⚠️ You must be logged in to create a post.</p>
@@ -86,19 +105,21 @@ export default function PostEditorPage() {
                     </div>
                 )}
 
-                <div className="post-editor-grid">
-                    {memes.map((meme) => (
-                        <div
-                            key={meme.meme_id}
-                            className={`post-editor-meme-card${selectedMemeId === meme.meme_id ? " selected" : ""}`}
-                            onClick={() => setSelectedMemeId(meme.meme_id)}
-                        >
-                            <img src={meme.url} alt="meme" />
-                            {selectedMemeId === meme.meme_id && (
-                                <div className="post-editor-selected-badge">✓ Selected</div>
-                            )}
-                        </div>
-                    ))}
+                <div className="post-editor-memes-scroll">
+                    <div className="post-editor-grid">
+                        {memes.map((meme) => (
+                            <div
+                                key={meme.meme_id}
+                                className={`post-editor-meme-card${selectedMemeId === meme.meme_id ? " selected" : ""}`}
+                                onClick={() => setSelectedMemeId(meme.meme_id)}
+                            >
+                                <img src={meme.url} alt="meme" />
+                                {selectedMemeId === meme.meme_id && (
+                                    <div className="post-editor-selected-badge">✓ Selected</div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
                 <button

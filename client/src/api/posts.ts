@@ -18,6 +18,9 @@ export interface PostData {
     meme_url: string;
     meme_top_text: string | null;
     meme_bottom_text: string | null;
+    meme_creator_id: number;
+    meme_creator_username: string;
+    meme_creator_avatar_filename: string | null;
 }
 
 export interface PostCreatePayload {
@@ -51,11 +54,7 @@ export async function createPost(payload: PostCreatePayload): Promise<{ post_id:
     return res.json();
 }
 
-export async function fetchPublishedMemes(): Promise<{ meme_id: number; url: string; top_text: string | null; bottom_text: string | null }[]> {
-    const res = await fetch(`${API_BASE}/memes`);
-    if (!res.ok) throw new Error(`Failed to fetch memes: ${res.status}`);
-    return res.json();
-}
+
 
 export interface UserPostData {
     post_id: number;
@@ -66,16 +65,11 @@ export interface UserPostData {
     date_of_creation: number | null;
     caption: string | null;
     meme_url: string;
+    meme_creator_id: number;
+    meme_creator_username: string;
+    meme_creator_avatar_filename: string | null;
 }
 
-export interface UserMemeData {
-    id: number;
-    image_resource_filename: string;
-    top_text: string | null;
-    bottom_text: string | null;
-    status: string;
-    repost_count: number;
-}
 
 export async function fetchPostsByUser(userId: number): Promise<UserPostData[]> {
     const res = await fetch(`${API_BASE}/users/${userId}/posts`, { headers: authHeaders() });
@@ -83,8 +77,4 @@ export async function fetchPostsByUser(userId: number): Promise<UserPostData[]> 
     return res.json();
 }
 
-export async function fetchMemesByUser(userId: number): Promise<UserMemeData[]> {
-    const res = await fetch(`${API_BASE}/users/${userId}/memes`);
-    if (!res.ok) throw new Error(`Failed to fetch user memes: ${res.status}`);
-    return res.json();
-}
+

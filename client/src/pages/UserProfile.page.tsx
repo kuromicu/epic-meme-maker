@@ -45,7 +45,7 @@ export default function UserProfilePage() {
             .catch(() => setError("User not found."))
             .finally(() => setLoading(false))
     }, [user_id])
-
+    console.log("PROFILE userId:", user_id)
     return (
         <>
             <TopButtons />
@@ -76,6 +76,7 @@ export default function UserProfilePage() {
                                     <span>{profile.subscriptions_count}</span>
                                     <p>Subscriptions</p>
                                 </div>
+                                
                             </div>
                         </div>
 

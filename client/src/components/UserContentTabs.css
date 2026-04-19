@@ -1,0 +1,46 @@
+.profile-tab-header {
+    /* вже є, просто переконайся що є display: flex */
+    display: flex;
+    align-items: center;
+}
+
+.profile-create-btn {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid #3b82f6;
+    background: transparent;
+    color: #3b82f6;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    box-shadow: none;
+    margin-bottom: 2px;
+}
+
+.profile-create-btn:hover {
+    background: #3b82f6;
+    color: #fff;
+    transform: none;
+    box-shadow: none;
+}
+
+.profile-create-btn-plus {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.profile-memes-masonry-scroll {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.profile-posts-grid-scroll {
+    max-height: 600px;
+    overflow-y: auto;
+}

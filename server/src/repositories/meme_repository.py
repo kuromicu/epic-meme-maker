@@ -1,10 +1,9 @@
 from typing import List
 
-
-from fastapi import Depends
 from sqlalchemy import insert, select, update, delete
 from src.models.meme import Meme, MemeCreate
 from src.services.database import get_db
+from fastapi import Depends
 
 
 class MemeRepository:
@@ -40,6 +39,36 @@ class MemeRepository:
         return result.scalars().all()
     
     async def get_all_memes(self, database):
+        result = await database.execute(select(Meme))
+        memes = result.scalars().all()
+
+        return [
+            {
+                "meme_id": m.id,
+                "url": f"http://localhost:8000/resources/{m.image_resource_filename}",
+                "top_text": m.top_text,
+                "bottom_text": m.bottom_text,
+                "repost_count": m.repost_count,
+            }
+            for m in memes
+        ]
+        
+    async def get_all_memes_by_creator_id(self, creator_id: int, database):
+        result = await database.execute(select(Meme).where(Meme.creator_id == creator_id))
+        memes = result.scalars().all()
+
+        return [
+            {
+                "meme_id": m.id,
+                "url": f"http://localhost:8000/resources/{m.image_resource_filename}",
+                "top_text": m.top_text,
+                "bottom_text": m.bottom_text,
+                "repost_count": m.repost_count,
+            }
+            for m in memes
+        ]
+        
+    async def get_all_published_memes(self, database):
         result = await database.execute(select(Meme).where(Meme.status == "published"))
         memes = result.scalars().all()
 
@@ -53,3 +82,25 @@ class MemeRepository:
             }
             for m in memes
         ]
+        
+    async def get_all_published_memes_by_creator_id(self, creator_id: int, database):
+        result = await database.execute(select(Meme).where(
+            Meme.status == "published",
+            Meme.creator_id == creator_id))
+        memes = result.scalars().all()
+
+        return [
+            {
+                "meme_id": m.id,
+                "url": f"http://localhost:8000/resources/{m.image_resource_filename}",
+                "top_text": m.top_text,
+                "bottom_text": m.bottom_text,
+                "repost_count": m.repost_count,
+            }
+            for m in memes
+        ]
+        
+    async def increment_repost_count(self, meme_id: int, database):
+        stmt = update(Meme).where(Meme.id == meme_id).values(repost_count=Meme.repost_count + 1)
+        await database.execute(stmt)
+        await database.commit()

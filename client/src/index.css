@@ -229,3 +229,18 @@ button:hover {
   margin-top: 80px;
   margin-bottom: 80px;
 }
+
+
+
+.profile-memes-masonry {
+    columns: 3;
+    column-gap: 10px;
+}
+
+.profile-memes-masonry .profile-meme-thumb {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    break-inside: avoid;
+}
